@@ -1,15 +1,15 @@
 #!/usr/bin/env node
 
-let message = "";
+let string = "";
 
 for (let i = 1; i <= 20; i++) {
   if (i % 3 === 0) {
-    message += "Fizz";
+    string += "Fizz";
   }
   if (i % 5 === 0) {
-    message += "Buzz";
+    string += "Buzz";
   }
-  message ||= i.toString();
-  console.log(message);
-  message = "";
+  string ||= i.toString();
+  console.log(string);
+  string = "";
 }
