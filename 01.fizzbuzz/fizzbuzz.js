@@ -12,5 +12,6 @@ for (let i = 1; i <= 20; i++) {
   if (string === "") {
     string += i.toString();
   }
+
   console.log(string);
 }
