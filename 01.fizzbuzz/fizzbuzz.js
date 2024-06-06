@@ -9,6 +9,8 @@ for (let i = 1; i <= 20; i++) {
   if (i % 5 === 0) {
     string += "Buzz";
   }
-  string ||= i.toString();
+  if (string === "") {
+    string += i.toString();
+  }
   console.log(string);
 }
