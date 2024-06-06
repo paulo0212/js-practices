@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-let string = "";
-
 for (let i = 1; i <= 20; i++) {
+  let string = "";
+
   if (i % 3 === 0) {
     string += "Fizz";
   }
@@ -11,5 +11,4 @@ for (let i = 1; i <= 20; i++) {
   }
   string ||= i.toString();
   console.log(string);
-  string = "";
 }
