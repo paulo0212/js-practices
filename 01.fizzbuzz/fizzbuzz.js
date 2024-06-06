@@ -1,17 +1,17 @@
 #!/usr/bin/env node
 
 for (let i = 1; i <= 20; i++) {
-  let string = "";
+  let output = "";
 
   if (i % 3 === 0) {
-    string += "Fizz";
+    output += "Fizz";
   }
   if (i % 5 === 0) {
-    string += "Buzz";
+    output += "Buzz";
   }
-  if (string === "") {
-    string += i.toString();
+  if (output === "") {
+    output += i.toString();
   }
 
-  console.log(string);
+  console.log(output);
 }
