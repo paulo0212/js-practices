@@ -47,7 +47,7 @@ const build_body = (date) => {
     target_date <= last_date;
     target_date = target_date.plus({ days: 1 })
   ) {
-    const date_str = rjust(target_date.toFormat("d"), 2);
+    const date_str = target_date.toFormat("d").padStart(2, " ");
     const separator = target_date.weekday === 6 ? "\n" : " ";
     body += date_str + separator;
   }
@@ -57,14 +57,6 @@ const build_body = (date) => {
 const padding_for_first_week = (date) => {
   const repeat_times = date.weekday % 7;
   return "   ".repeat(repeat_times);
-};
-
-const rjust = (string, length, padChar = " ") => {
-  if (string.length > length) {
-    return string;
-  } else {
-    return padChar.repeat(length - string.length) + string;
-  }
 };
 
 main();
