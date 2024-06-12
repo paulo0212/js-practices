@@ -12,51 +12,51 @@ const main = () => {
   const year = argv["y"] || today.year;
   const month = argv["m"] || today.month;
 
-  print_calendar(DateTime.local(year, month, 1));
+  printCalendar(DateTime.local(year, month, 1));
 };
 
-const print_calendar = (date) => {
-  const header = build_header(date);
-  const body = build_body(date);
+const printCalendar = (date) => {
+  const header = buildCalendarHeader(date);
+  const body = buildCalendarBody(date);
 
   console.log(header);
   console.log(body);
 };
 
-const build_header = (date) => {
-  const header = format_year_month(date) + "\n" + DAY_OF_WEEK;
+const buildCalendarHeader = (date) => {
+  const header = formatYearMonth(date) + "\n" + DAY_OF_WEEK;
   return header;
 };
 
-const format_year_month = (date) => {
-  const year_month_str = date.toFormat("MMMM yyyy");
-  const padding_width = (PRINT_WIDTH - year_month_str.length) / 2;
-  const padding = " ".repeat(padding_width);
+const formatYearMonth = (date) => {
+  const yearMonthStr = date.toFormat("MMMM yyyy");
+  const paddingWidth = (PRINT_WIDTH - yearMonthStr.length) / 2;
+  const padding = " ".repeat(paddingWidth);
 
-  return padding + year_month_str;
+  return padding + yearMonthStr;
 };
 
-const build_body = (date) => {
-  const first_date = date.startOf("month");
-  const last_date = date.endOf("month");
+const buildCalendarBody = (date) => {
+  const firstDate = date.startOf("month");
+  const lastDate = date.endOf("month");
 
-  let body = padding_for_first_week(first_date);
+  let body = paddingForFirstWeek(firstDate);
 
   for (
-    let target_date = first_date;
-    target_date <= last_date;
-    target_date = target_date.plus({ days: 1 })
+    let targetDate = firstDate;
+    targetDate <= lastDate;
+    targetDate = targetDate.plus({ days: 1 })
   ) {
-    const date_str = target_date.toFormat("d").padStart(2, " ");
-    const separator = target_date.weekday === 6 ? "\n" : " ";
-    body += date_str + separator;
+    const dateStr = targetDate.toFormat("d").padStart(2, " ");
+    const separator = targetDate.weekday === 6 ? "\n" : " ";
+    body += dateStr + separator;
   }
   return body;
 };
 
-const padding_for_first_week = (date) => {
-  const repeat_times = date.weekday % 7;
-  return "   ".repeat(repeat_times);
+const paddingForFirstWeek = (date) => {
+  const repeatTimes = date.weekday % 7;
+  return "   ".repeat(repeatTimes);
 };
 
 main();
