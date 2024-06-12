@@ -51,6 +51,7 @@ const buildCalendarBody = (date) => {
     const separator = targetDate.weekday === 6 ? "\n" : " ";
     body += dateStr + separator;
   }
+  if (!body.endsWith("\n")) body += "\n";
   return body;
 };
 
