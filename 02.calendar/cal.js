@@ -55,8 +55,7 @@ const buildCalendarBody = (year, month) => {
 };
 
 const paddingForFirstWeek = (date) => {
-  const repeatTimes = date.weekday % 7;
-  return "   ".repeat(repeatTimes);
+  return "   ".repeat(date.weekday % 7);
 };
 
 main();
