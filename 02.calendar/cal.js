@@ -24,10 +24,10 @@ const printCalendar = (year, month) => {
 };
 
 const buildCalendarHeader = (year, month) => {
-  return `${formatYearMonth(year, month)}\n${DAY_OF_WEEK}`;
+  return `${formatYearAndMonth(year, month)}\n${DAY_OF_WEEK}`;
 };
 
-const formatYearMonth = (year, month) => {
+const formatYearAndMonth = (year, month) => {
   const yearMonthStr = DateTime.local(year, month, 1).toFormat("MMMM yyyy");
   const paddingWidth = (PRINT_WIDTH - yearMonthStr.length) / 2;
   const padding = " ".repeat(paddingWidth);
