@@ -24,8 +24,7 @@ const printCalendar = (year, month) => {
 };
 
 const buildCalendarHeader = (year, month) => {
-  const header = formatYearMonth(year, month) + "\n" + DAY_OF_WEEK;
-  return header;
+  return formatYearMonth(year, month) + "\n" + DAY_OF_WEEK;
 };
 
 const formatYearMonth = (year, month) => {
