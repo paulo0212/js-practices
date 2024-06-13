@@ -5,6 +5,7 @@ import { DateTime } from "luxon";
 
 const DAY_OF_WEEK = "Su Mo Tu We Th Fr Sa";
 const PRINT_WIDTH = DAY_OF_WEEK.length;
+const PRINT_DATE_LINES = 6;
 
 const main = () => {
   const argv = minimist(process.argv.slice(2));
@@ -50,12 +51,16 @@ const buildCalendarBody = (year, month) => {
     const separator = targetDate.weekday === 6 ? "\n" : " ";
     body += dateStr + separator;
   }
-  if (!body.endsWith("\n")) body += "\n";
+  body += paddingForCalendarBottom(body);
   return body;
 };
 
 const paddingForFirstWeek = (date) => {
   return "   ".repeat(date.weekday % 7);
+};
+
+const paddingForCalendarBottom = (body) => {
+  return "\n".repeat(PRINT_DATE_LINES - body.split("\n").length);
 };
 
 main();
