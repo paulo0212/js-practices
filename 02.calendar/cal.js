@@ -12,33 +12,33 @@ const main = () => {
   const year = argv.y ?? today.year;
   const month = argv.m ?? today.month;
 
-  printCalendar(DateTime.local(year, month, 1));
+  printCalendar(year, month);
 };
 
-const printCalendar = (date) => {
-  const header = buildCalendarHeader(date);
-  const body = buildCalendarBody(date);
+const printCalendar = (year, month) => {
+  const header = buildCalendarHeader(year, month);
+  const body = buildCalendarBody(year, month);
 
   console.log(header);
   console.log(body);
 };
 
-const buildCalendarHeader = (date) => {
-  const header = formatYearMonth(date) + "\n" + DAY_OF_WEEK;
+const buildCalendarHeader = (year, month) => {
+  const header = formatYearMonth(year, month) + "\n" + DAY_OF_WEEK;
   return header;
 };
 
-const formatYearMonth = (date) => {
-  const yearMonthStr = date.toFormat("MMMM yyyy");
+const formatYearMonth = (year, month) => {
+  const yearMonthStr = DateTime.local(year, month, 1).toFormat("MMMM yyyy");
   const paddingWidth = (PRINT_WIDTH - yearMonthStr.length) / 2;
   const padding = " ".repeat(paddingWidth);
 
   return padding + yearMonthStr;
 };
 
-const buildCalendarBody = (date) => {
-  const firstDate = date.startOf("month");
-  const lastDate = date.endOf("month");
+const buildCalendarBody = (year, month) => {
+  const firstDate = DateTime.local(year, month, 1);
+  const lastDate = firstDate.endOf("month");
 
   let body = paddingForFirstWeek(firstDate);
 
