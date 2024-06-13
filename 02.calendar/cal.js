@@ -9,8 +9,8 @@ const PRINT_WIDTH = DAY_OF_WEEK.length;
 const main = () => {
   const argv = minimist(process.argv.slice(2));
   const today = DateTime.local();
-  const year = argv.y || today.year;
-  const month = argv.m || today.month;
+  const year = argv.y ?? today.year;
+  const month = argv.m ?? today.month;
 
   printCalendar(DateTime.local(year, month, 1));
 };
