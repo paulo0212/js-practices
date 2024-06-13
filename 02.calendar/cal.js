@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import minimist from "minimist";
-import { DateTime } from "luxon";
+import { DateTime as dtLuxon } from "luxon";
 
 const DAY_OF_WEEK = "Su Mo Tu We Th Fr Sa";
 const PRINT_WIDTH = DAY_OF_WEEK.length;
@@ -9,7 +9,7 @@ const PRINT_DATE_LINES = 6;
 
 const main = () => {
   const argv = minimist(process.argv.slice(2));
-  const today = DateTime.local();
+  const today = dtLuxon.local();
   const year = argv.y ?? today.year;
   const month = argv.m ?? today.month;
 
@@ -29,7 +29,7 @@ const buildCalendarHeader = (year, month) => {
 };
 
 const formatYearAndMonth = (year, month) => {
-  const yearMonthStr = DateTime.local(year, month, 1).toFormat("MMMM yyyy");
+  const yearMonthStr = dtLuxon.local(year, month, 1).toFormat("MMMM yyyy");
   const paddingWidth = (PRINT_WIDTH - yearMonthStr.length) / 2;
   const padding = " ".repeat(paddingWidth);
 
@@ -37,7 +37,7 @@ const formatYearAndMonth = (year, month) => {
 };
 
 const buildCalendarBody = (year, month) => {
-  const firstDate = DateTime.local(year, month, 1);
+  const firstDate = dtLuxon.local(year, month, 1);
   const lastDate = firstDate.endOf("month");
 
   let body = paddingForFirstWeek(firstDate);
