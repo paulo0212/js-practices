@@ -35,7 +35,7 @@ const formatYearAndMonth = (year, month) => {
   const paddingWidth = (PRINT_WIDTH - yearAndMonthStr.length) / 2;
   const padding = " ".repeat(paddingWidth);
 
-  return padding + yearAndMonthStr;
+  return `${padding}${yearAndMonthStr}`;
 };
 
 const buildCalendarBody = (year, month) => {
@@ -51,7 +51,7 @@ const buildCalendarBody = (year, month) => {
   ) {
     const dateStr = targetDate.toFormat("d").padStart(2, " ");
     const separator = targetDate.weekday === 6 ? "\n" : " ";
-    body += dateStr + separator;
+    body += `${dateStr}${separator}`;
   }
   body += paddingForCalendarBottom(body);
   return body;
