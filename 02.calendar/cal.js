@@ -29,13 +29,13 @@ const buildCalendarHeader = (year, month) => {
 };
 
 const formatYearAndMonth = (year, month) => {
-  const yearMonthStr = luxon.DateTime.local(year, month, 1).toFormat(
+  const yearAndMonthStr = luxon.DateTime.local(year, month, 1).toFormat(
     "MMMM yyyy",
   );
-  const paddingWidth = (PRINT_WIDTH - yearMonthStr.length) / 2;
+  const paddingWidth = (PRINT_WIDTH - yearAndMonthStr.length) / 2;
   const padding = " ".repeat(paddingWidth);
 
-  return padding + yearMonthStr;
+  return padding + yearAndMonthStr;
 };
 
 const buildCalendarBody = (year, month) => {
