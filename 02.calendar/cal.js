@@ -43,7 +43,6 @@ const buildCalendarBody = (year, month) => {
   const lastDate = firstDate.endOf("month");
 
   let body = paddingForFirstWeek(firstDate);
-
   for (
     let targetDate = firstDate;
     targetDate <= lastDate;
@@ -54,6 +53,7 @@ const buildCalendarBody = (year, month) => {
     body += `${dateStr}${separator}`;
   }
   body += paddingForCalendarBottom(body);
+
   return body;
 };
 
