@@ -52,8 +52,6 @@ const buildCalendarBody = (year, month) => {
     let separator = "";
     if (targetDate < lastDate) {
       separator = targetDate.weekday === 6 ? "\n" : " ";
-    } else {
-      separator = "\n";
     }
     body += `${dateStr}${separator}`;
   }
