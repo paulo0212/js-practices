@@ -55,7 +55,7 @@ const buildCalendarBody = (year, month) => {
     }
     body += `${dateStr}${separator}`;
   }
-  body += padForCalendarBottom(body);
+  body += adjustPrintDateLines(body);
 
   return body;
 };
@@ -64,7 +64,7 @@ const padForFirstWeek = (date) => {
   return "   ".repeat(date.weekday % 7);
 };
 
-const padForCalendarBottom = (body) => {
+const adjustPrintDateLines = (body) => {
   return "\n".repeat(PRINT_DATE_LINES - body.split("\n").length);
 };
 
