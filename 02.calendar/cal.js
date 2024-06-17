@@ -40,7 +40,7 @@ const formatYearAndMonth = (year, month) => {
 
 const buildCalendarBody = (year, month) => {
   const firstDate = luxon.DateTime.local(year, month, 1);
-  const lastDate = firstDate.endOf("month");
+  const lastDate = firstDate.endOf("month").startOf("day");
 
   let body = padForFirstWeek(firstDate);
   for (
@@ -49,7 +49,12 @@ const buildCalendarBody = (year, month) => {
     targetDate = targetDate.plus({ days: 1 })
   ) {
     const dateStr = targetDate.toFormat("d").padStart(2, " ");
-    const separator = targetDate.weekday === 6 ? "\n" : " ";
+    let separator = "";
+    if (targetDate < lastDate) {
+      separator = targetDate.weekday === 6 ? "\n" : " ";
+    } else {
+      separator = "\n";
+    }
     body += `${dateStr}${separator}`;
   }
   body += padForCalendarBottom(body);
