@@ -49,9 +49,11 @@ const buildCalendarBody = (year, month) => {
     targetDate = targetDate.plus({ days: 1 })
   ) {
     const dateStr = targetDate.toFormat("d").padStart(2, " ");
-    let separator = "";
-    if (targetDate < lastDate) {
-      separator = targetDate.weekday === 6 ? "\n" : " ";
+    let separator = " ";
+    if (targetDate.weekday === 6) {
+      separator = "\n";
+    } else if (targetDate === lastDate) {
+      separator = "";
     }
     body += `${dateStr}${separator}`;
   }
