@@ -42,7 +42,7 @@ const buildCalendarBody = (year, month) => {
   const firstDate = luxon.DateTime.local(year, month, 1);
   const lastDate = firstDate.endOf("month").startOf("day");
 
-  let body = padForFirstWeek(firstDate);
+  let body = generateFirstWeekPadding(firstDate);
   for (
     let targetDate = firstDate;
     targetDate <= lastDate;
@@ -55,16 +55,16 @@ const buildCalendarBody = (year, month) => {
     }
     body += `${dateStr}${separator}`;
   }
-  body += adjustPrintDateLines(body);
+  body += generateCalendarBottomPadding(body);
 
   return body;
 };
 
-const padForFirstWeek = (date) => {
+const generateFirstWeekPadding = (date) => {
   return "   ".repeat(date.weekday % 7);
 };
 
-const adjustPrintDateLines = (body) => {
+const generateCalendarBottomPadding = (body) => {
   return "\n".repeat(PRINT_DATE_LINES - body.split("\n").length);
 };
 
