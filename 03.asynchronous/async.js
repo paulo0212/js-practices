@@ -24,7 +24,7 @@ async function withoutError() {
   let book = await getPromise(db, "SELECT * FROM books");
   console.log(book);
 
-  await runPromise(db, "DROP TABLE books");
+  runPromise(db, "DROP TABLE books");
 }
 
 async function withError() {
@@ -53,7 +53,7 @@ async function withError() {
     console.error(error.message);
   }
 
-  await runPromise(db, "DROP TABLE books");
+  runPromise(db, "DROP TABLE books");
 }
 
 console.log("\n= = = = = ここからエラーなし = = = = =");
