@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import sqlite3 from "sqlite3";
+import timers from "timers/promises";
 import { runPromise, getPromise } from "./promisifiedFunctions.js";
 
 const db = new sqlite3.Database(":memory:");
@@ -56,9 +57,13 @@ async function withError() {
 }
 
 console.log("\n= = = = = ここからエラーなし = = = = =");
-await withoutError();
+withoutError();
+
+await timers.setTimeout(100);
 
 console.log("\n= = = = = ここからエラーあり = = = = =");
-await withError();
+withError();
 
-await db.close();
+await timers.setTimeout(100);
+
+db.close();
