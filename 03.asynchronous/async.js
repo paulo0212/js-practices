@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-import timers from "timers/promises";
 import sqlite3 from "sqlite3";
 import {
   runPromise,
@@ -71,9 +70,7 @@ async function executeDatabaseOperationsWithError() {
 }
 
 console.log("\n= = = = = ここからエラーなし = = = = =");
-executeDatabaseOperationsWithoutError();
-
-await timers.setTimeout(100);
+await executeDatabaseOperationsWithoutError();
 
 console.log("\n= = = = = ここからエラーあり = = = = =");
-executeDatabaseOperationsWithError();
+await executeDatabaseOperationsWithError();
