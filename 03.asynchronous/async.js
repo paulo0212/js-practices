@@ -13,12 +13,12 @@ async function withoutError() {
   );
 
   console.log("\n2. レコード追加");
-  let resolve = await runPromise(
+  let result = await runPromise(
     db,
     "INSERT INTO books (title) VALUES (?)",
     "LoremIpsum",
   );
-  console.log(`lastID : ${resolve.lastID}`);
+  console.log(`lastID : ${result.lastID}`);
 
   console.log("\n3. レコード取得");
   let book = await getPromise(db, "SELECT * FROM books");
@@ -35,12 +35,12 @@ async function withError() {
 
   console.log("\n2. レコード追加");
   try {
-    let resolve = await runPromise(
+    let result = await runPromise(
       db,
       "INSERT INTO books (title) VALUES (?)",
       null,
     );
-    console.log(`lastID : ${resolve.lastID}`);
+    console.log(`lastID : ${result.lastID}`);
   } catch (error) {
     console.error(error.message);
   }

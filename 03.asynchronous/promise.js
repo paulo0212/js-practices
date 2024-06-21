@@ -15,8 +15,8 @@ runPromise(
     console.log("\n2. レコード追加");
     return runPromise(db, "INSERT INTO books (title) VALUES (?)", "LoremIpsum");
   })
-  .then((resolve) => {
-    console.log(`lastID : ${resolve.lastID}`);
+  .then((result) => {
+    console.log(`lastID : ${result.lastID}`);
     console.log("\n3. レコード取得");
     return getPromise(db, "SELECT * FROM books");
   })
