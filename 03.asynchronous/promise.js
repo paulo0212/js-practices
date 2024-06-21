@@ -20,8 +20,10 @@ runPromise(
     console.log("\n3. レコード取得");
     return getPromise(db, "SELECT * FROM books");
   })
-  .then((book) => console.log(book))
-  .then(() => runPromise(db, "DROP TABLE books"));
+  .then((book) => {
+    console.log(book);
+    runPromise(db, "DROP TABLE books");
+  });
 
 await timers.setTimeout(100);
 
