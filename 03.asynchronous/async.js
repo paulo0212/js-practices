@@ -13,7 +13,7 @@ async function executeDatabaseOperationsWithoutError() {
   );
 
   console.log("\n2. レコード追加");
-  let result = await runPromise(
+  const result = await runPromise(
     db,
     "INSERT INTO books (title) VALUES (?)",
     "LoremIpsum",
@@ -21,7 +21,7 @@ async function executeDatabaseOperationsWithoutError() {
   console.log(`lastID : ${result.lastID}`);
 
   console.log("\n3. レコード取得");
-  let book = await getPromise(db, "SELECT * FROM books");
+  const book = await getPromise(db, "SELECT * FROM books");
   console.log(book);
 
   runPromise(db, "DROP TABLE books");
@@ -35,7 +35,7 @@ async function executeDatabaseOperationsWithError() {
 
   console.log("\n2. レコード追加");
   try {
-    let result = await runPromise(
+    const result = await runPromise(
       db,
       "INSERT INTO books (title) VALUES (?)",
       null,
@@ -47,7 +47,7 @@ async function executeDatabaseOperationsWithError() {
 
   console.log("\n3. レコード取得");
   try {
-    let book = await getPromise(db, "SELECT author FROM books");
+    const book = await getPromise(db, "SELECT author FROM books");
     console.log(book);
   } catch (error) {
     console.error(error.message);
