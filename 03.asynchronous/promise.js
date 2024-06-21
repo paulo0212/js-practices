@@ -43,7 +43,11 @@ runPromise(
       return getPromise(db, "SELECT author FROM books");
     },
     (error) => {
-      console.error(error.message);
+      if (error.code === "SQLITE_CONSTRAINT") {
+        console.error(error.message);
+      } else {
+        throw error;
+      }
       console.log("\n3. レコード取得");
       return getPromise(db, "SELECT author FROM books");
     },
@@ -54,7 +58,11 @@ runPromise(
       return runPromise(db, "DROP TABLE books");
     },
     (error) => {
-      console.error(error.message);
+      if (error.code === "SQLITE_ERROR") {
+        console.error(error.message);
+      } else {
+        throw error;
+      }
       return runPromise(db, "DROP TABLE books");
     },
   )

@@ -30,14 +30,20 @@ db.run(
     console.log("\n2. レコード追加");
     db.run("INSERT INTO books (title) VALUES (?)", null, function (error) {
       if (error) {
-        console.error(error.message);
+        if (error.code === "SQLITE_CONSTRAINT") {
+          console.error(error.message);
+        } else {
+          throw error;
+        }
       } else {
         console.log(`lastID : ${this.lastID}`);
       }
       console.log("\n3. レコード取得");
       db.get("SELECT author FROM books", (error, book) => {
-        if (error) {
+        if (error && error.code === "SQLITE_ERROR") {
           console.error(error.message);
+        } else if (error) {
+          throw error;
         } else {
           console.log(book);
         }

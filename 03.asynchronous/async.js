@@ -46,7 +46,11 @@ async function executeDatabaseOperationsWithError() {
     );
     console.log(`lastID : ${result.lastID}`);
   } catch (error) {
-    console.error(error.message);
+    if (error.code === "SQLITE_CONSTRAINT") {
+      console.error(error.message);
+    } else {
+      throw error;
+    }
   }
 
   console.log("\n3. レコード取得");
@@ -54,7 +58,11 @@ async function executeDatabaseOperationsWithError() {
     const book = await getPromise(db, "SELECT author FROM books");
     console.log(book);
   } catch (error) {
-    console.error(error.message);
+    if (error.code === "SQLITE_ERROR") {
+      console.error(error.message);
+    } else {
+      throw error;
+    }
   }
 
   await runPromise(db, "DROP TABLE books");
