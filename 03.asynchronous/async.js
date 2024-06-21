@@ -6,7 +6,7 @@ import { runPromise, getPromise } from "./promisifiedFunctions.js";
 
 const db = new sqlite3.Database(":memory:");
 
-async function withoutError() {
+async function executeDatabaseOperationsWithoutError() {
   await runPromise(
     db,
     "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL UNIQUE)",
@@ -27,7 +27,7 @@ async function withoutError() {
   runPromise(db, "DROP TABLE books");
 }
 
-async function withError() {
+async function executeDatabaseOperationsWithError() {
   await runPromise(
     db,
     "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL UNIQUE)",
@@ -59,9 +59,9 @@ async function withError() {
 }
 
 console.log("\n= = = = = ここからエラーなし = = = = =");
-withoutError();
+executeDatabaseOperationsWithoutError();
 
 await timers.setTimeout(100);
 
 console.log("\n= = = = = ここからエラーあり = = = = =");
-withError();
+executeDatabaseOperationsWithError();
