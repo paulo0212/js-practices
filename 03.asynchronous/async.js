@@ -2,7 +2,11 @@
 
 import sqlite3 from "sqlite3";
 import timers from "timers/promises";
-import { runPromise, getPromise } from "./promisifiedFunctions.js";
+import {
+  runPromise,
+  getPromise,
+  closePromise,
+} from "./promisifiedFunctions.js";
 
 const db = new sqlite3.Database(":memory:");
 
@@ -24,7 +28,7 @@ async function executeDatabaseOperationsWithoutError() {
   const book = await getPromise(db, "SELECT * FROM books");
   console.log(book);
 
-  runPromise(db, "DROP TABLE books");
+  await runPromise(db, "DROP TABLE books");
 }
 
 async function executeDatabaseOperationsWithError() {
@@ -55,7 +59,7 @@ async function executeDatabaseOperationsWithError() {
 
   await runPromise(db, "DROP TABLE books");
 
-  db.close();
+  await closePromise(db);
 }
 
 console.log("\n= = = = = ここからエラーなし = = = = =");

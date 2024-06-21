@@ -21,3 +21,15 @@ export const getPromise = (db, query, params = []) => {
     });
   });
 };
+
+export const closePromise = (db) => {
+  return new Promise((resolve, reject) => {
+    db.close((error) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve;
+      }
+    });
+  });
+};
