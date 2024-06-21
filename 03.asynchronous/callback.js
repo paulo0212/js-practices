@@ -41,12 +41,8 @@ db.run(
         } else {
           console.log(book);
         }
-        db.run("DROP TABLE books");
+        db.run("DROP TABLE books", () => db.close());
       });
     });
   },
 );
-
-await timers.setTimeout(100);
-
-db.close();

@@ -53,7 +53,9 @@ async function withError() {
     console.error(error.message);
   }
 
-  runPromise(db, "DROP TABLE books");
+  await runPromise(db, "DROP TABLE books");
+
+  db.close();
 }
 
 console.log("\n= = = = = ここからエラーなし = = = = =");
@@ -63,7 +65,3 @@ await timers.setTimeout(100);
 
 console.log("\n= = = = = ここからエラーあり = = = = =");
 withError();
-
-await timers.setTimeout(100);
-
-db.close();

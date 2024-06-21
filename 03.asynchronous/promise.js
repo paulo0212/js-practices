@@ -40,8 +40,5 @@ runPromise(
     return getPromise(db, "SELECT author FROM books");
   })
   .catch((error) => console.error(error.message))
-  .then(() => runPromise(db, "DROP TABLE books"));
-
-await timers.setTimeout(100);
-
-db.close();
+  .then(() => runPromise(db, "DROP TABLE books"))
+  .then(() => db.close());
