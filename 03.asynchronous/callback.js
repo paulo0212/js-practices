@@ -13,7 +13,7 @@ db.run(
     db.run("INSERT INTO books (title) VALUES (?)", "LoremIpsum", function () {
       console.log(`lastID : ${this.lastID}`);
       console.log("\n3. レコード取得");
-      db.get("SELECT * FROM books", (error, book) => {
+      db.get("SELECT * FROM books", (_, book) => {
         console.log(book);
         db.run("DROP TABLE books");
       });
