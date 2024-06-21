@@ -36,11 +36,26 @@ runPromise(
     console.log("\n2. レコード追加");
     return runPromise(db, "INSERT INTO books (title) VALUES (?)", null);
   })
-  .catch((error) => console.error(error.message))
-  .then(() => {
-    console.log("\n3. レコード取得");
-    return getPromise(db, "SELECT author FROM books");
-  })
-  .catch((error) => console.error(error.message))
-  .then(() => runPromise(db, "DROP TABLE books"))
+  .then(
+    (result) => {
+      console.log(`lastID : ${result.lastID}`);
+      console.log("\n3. レコード取得");
+      return getPromise(db, "SELECT author FROM books");
+    },
+    (error) => {
+      console.error(error.message);
+      console.log("\n3. レコード取得");
+      return getPromise(db, "SELECT author FROM books");
+    },
+  )
+  .then(
+    (book) => {
+      console.log(book);
+      return runPromise(db, "DROP TABLE books");
+    },
+    (error) => {
+      console.error(error.message);
+      return runPromise(db, "DROP TABLE books");
+    },
+  )
   .then(() => db.close());
