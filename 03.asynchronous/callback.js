@@ -41,7 +41,9 @@ db.run(
         } else {
           console.log(book);
         }
-        db.run("DROP TABLE books", () => db.close());
+        db.run("DROP TABLE books", () => {
+          db.close();
+        });
       });
     });
   },
