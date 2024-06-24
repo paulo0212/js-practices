@@ -22,7 +22,7 @@ runPromise(
   })
   .then((book) => {
     console.log(book);
-    runPromise(db, "DROP TABLE books");
+    return runPromise(db, "DROP TABLE books");
   });
 
 await timers.setTimeout(100);
