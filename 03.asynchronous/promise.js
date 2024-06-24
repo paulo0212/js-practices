@@ -2,7 +2,11 @@
 
 import timers from "timers/promises";
 import sqlite3 from "sqlite3";
-import { runPromise, getPromise } from "./promisifiedFunctions.js";
+import {
+  runPromise,
+  getPromise,
+  closePromise,
+} from "./promisifiedFunctions.js";
 
 const db = new sqlite3.Database(":memory:");
 
@@ -64,6 +68,4 @@ runPromise(
         throw error;
       }
       return runPromise(db, "DROP TABLE books");
-    },
-  )
-  .then(() => db.close());
+  .then(() => closePromise(db));
