@@ -28,7 +28,7 @@ export const closePromise = (db) => {
       if (error) {
         reject(error);
       } else {
-        resolve;
+        resolve();
       }
     });
   });
