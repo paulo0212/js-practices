@@ -46,7 +46,7 @@ runPromise(
     return getPromise(db, "SELECT author FROM books");
   })
   .catch((error) => {
-    if (error instanceof Error && error.code.startsWith("SQLITE_")) {
+    if (error instanceof Error && error.code?.startsWith("SQLITE_")) {
       console.error(error.message);
     } else {
       throw error;
@@ -59,7 +59,7 @@ runPromise(
     return runPromise(db, "DROP TABLE books");
   })
   .catch((error) => {
-    if (error instanceof Error && error.code.startsWith("SQLITE_")) {
+    if (error instanceof Error && error.code?.startsWith("SQLITE_")) {
       console.error(error.message);
     } else {
       throw error;

@@ -46,7 +46,7 @@ try {
   );
   console.log(`lastID : ${result.lastID}`);
 } catch (error) {
-  if (error instanceof Error && error.code.startsWith("SQLITE_")) {
+  if (error instanceof Error && error.code?.startsWith("SQLITE_")) {
     console.error(error.message);
   } else {
     throw error;
@@ -58,7 +58,7 @@ try {
   const book = await getPromise(db, "SELECT author FROM books");
   console.log(book);
 } catch (error) {
-  if (error instanceof Error && error.code.startsWith("SQLITE_")) {
+  if (error instanceof Error && error.code?.startsWith("SQLITE_")) {
     console.error(error.message);
   } else {
     throw error;
