@@ -42,8 +42,6 @@ runPromise(
   })
   .then((result) => {
     console.log(`lastID : ${result.lastID}`);
-    console.log("\n3. レコード取得");
-    return getPromise(db, "SELECT author FROM books");
   })
   .catch((error) => {
     if (error instanceof Error && error.code?.startsWith("SQLITE_")) {
@@ -51,12 +49,13 @@ runPromise(
     } else {
       throw error;
     }
+  })
+  .then(() => {
     console.log("\n3. レコード取得");
     return getPromise(db, "SELECT author FROM books");
   })
   .then((book) => {
     console.log(book);
-    return runPromise(db, "DROP TABLE books");
   })
   .catch((error) => {
     if (error instanceof Error && error.code?.startsWith("SQLITE_")) {
@@ -64,6 +63,6 @@ runPromise(
     } else {
       throw error;
     }
-    return runPromise(db, "DROP TABLE books");
   })
+  .then(() => runPromise(db, "DROP TABLE books"))
   .then(() => closePromise(db));
