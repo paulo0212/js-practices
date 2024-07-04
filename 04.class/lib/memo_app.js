@@ -4,7 +4,21 @@ export default class MemoApp {
   }
 
   run(options) {
-    console.log(options);
+    if (options) {
+      switch (options) {
+        case "-l":
+          this.#list();
+          break;
+        case "-r":
+          this.#read();
+          break;
+        case "-d":
+          this.#delete();
+          break;
+      }
+    } else {
+      this.#add();
+    }
   }
 
   #add() {
