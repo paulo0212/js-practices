@@ -1,3 +1,5 @@
+import readline from "readline";
+
 export default class MemoApp {
   constructor(storage) {
     this.storage = storage;
@@ -21,8 +23,15 @@ export default class MemoApp {
     }
   }
 
-  #add() {
-    console.log("This is #add.");
+  async #add() {
+    const rl = readline.createInterface(process.stdin);
+    const lines = [];
+    for await (const line of rl) {
+      lines.push(line);
+    }
+
+    const content = lines.join("\n");
+    await this.storage.create(content);
   }
 
   #list() {
