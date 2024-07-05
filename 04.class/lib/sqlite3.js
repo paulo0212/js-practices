@@ -8,7 +8,11 @@ export default class SQLite3 extends Storage {
     this.#safeCreateTable();
   }
 
-  fetchAll() {}
+  async fetchAll() {
+    const memos = await this.#allPromise(this.db, "SELECT * FROM memos");
+    await this.#closePromise(this.db);
+    return memos;
+  }
 
   async create(lines) {
     await this.#runPromise(
@@ -37,6 +41,18 @@ export default class SQLite3 extends Storage {
           reject(error);
         } else {
           resolve(this);
+        }
+      });
+    });
+  }
+
+  #allPromise(db, query, params = []) {
+    return new Promise((resolve, reject) => {
+      db.all(query, params, (error, result) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(result);
         }
       });
     });

@@ -34,8 +34,12 @@ export default class MemoApp {
     await this.storage.create(content);
   }
 
-  #list() {
-    console.log("This is #list.");
+  async #list() {
+    const memos = await this.storage.fetchAll();
+    for (const memo of memos) {
+      const title = memo.content.split(/[\r\n]+/)[0];
+      console.log(title);
+    }
   }
 
   #read() {
