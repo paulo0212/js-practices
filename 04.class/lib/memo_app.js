@@ -55,11 +55,12 @@ export default class MemoApp {
       },
     });
 
-    prompt
-      .run()
-      .then((memo) => console.log(memo.value))
-      .catch(console.error)
-      .then(() => this.storage.close());
+    try {
+      const memo = await prompt.run();
+      console.log(memo.value);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   async #delete() {
@@ -73,10 +74,12 @@ export default class MemoApp {
       },
     });
 
-    prompt
-      .run()
-      .then((memo) => this.storage.delete(memo.name))
-      .catch(console.error)
-      .then(() => this.storage.close());
+    try {
+      const memo = await prompt.run();
+      await this.storage.delete(memo.name);
+      console.log(`'${memo.message}' has been deleted.`);
+    } catch (error) {
+      console.error(error);
+    }
   }
 }
