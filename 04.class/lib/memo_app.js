@@ -8,15 +8,20 @@ export default class MemoApp {
 
   async run(options) {
     if (options) {
+      const memos = await this.storage.fetchAll();
+      if (!memos || memos.length === 0) {
+        console.log("There are no memos available.");
+        return;
+      }
       switch (options) {
         case "-l":
-          await this.#list();
+          await this.#list(memos);
           break;
         case "-r":
-          await this.#read();
+          await this.#read(memos);
           break;
         case "-d":
-          await this.#delete();
+          await this.#delete(memos);
           break;
       }
     } else {
@@ -36,15 +41,13 @@ export default class MemoApp {
     await this.storage.create(content);
   }
 
-  async #list() {
-    const memos = await this.storage.fetchAll();
+  async #list(memos) {
     for (const memo of memos) {
       console.log(memo.message);
     }
   }
 
-  async #read() {
-    const memos = await this.storage.fetchAll();
+  async #read(memos) {
     const prompt = new enquirer.Select({
       name: "memo",
       message: "Choose a memo you want to see:",
@@ -62,8 +65,7 @@ export default class MemoApp {
     }
   }
 
-  async #delete() {
-    const memos = await this.storage.fetchAll();
+  async #delete(memos) {
     const prompt = new enquirer.Select({
       name: "memo",
       message: "Choose a memo you want to delete:",
