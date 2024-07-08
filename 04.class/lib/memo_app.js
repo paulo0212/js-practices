@@ -6,22 +6,23 @@ export default class MemoApp {
     this.storage = storage;
   }
 
-  run(options) {
+  async run(options) {
     if (options) {
       switch (options) {
         case "-l":
-          this.#list();
+          await this.#list();
           break;
         case "-r":
-          this.#read();
+          await this.#read();
           break;
         case "-d":
-          this.#delete();
+          await this.#delete();
           break;
       }
     } else {
-      this.#add();
+      await this.#add();
     }
+    await this.storage.close();
   }
 
   async #add() {
@@ -33,7 +34,6 @@ export default class MemoApp {
 
     const content = lines.join("\n");
     await this.storage.create(content);
-    await this.storage.close();
   }
 
   async #list() {
@@ -41,7 +41,6 @@ export default class MemoApp {
     for (const memo of memos) {
       console.log(memo.message);
     }
-    await this.storage.close();
   }
 
   async #read() {
