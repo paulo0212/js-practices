@@ -9,7 +9,7 @@ export default class MemoApp {
   async run(options) {
     if (options) {
       const memos = await this.storage.fetchAll();
-      if (!memos || memos.length === 0) {
+      if (!memos?.length > 0) {
         console.log("There are no memos available.");
         return;
       }
