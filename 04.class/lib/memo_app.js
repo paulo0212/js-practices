@@ -62,7 +62,21 @@ export default class MemoApp {
       .then(() => this.storage.close());
   }
 
-  #delete() {
-    console.log("This is #delete.");
+  async #delete() {
+    const memos = await this.storage.fetchAll();
+    const prompt = new enquirer.Select({
+      name: "memo",
+      message: "Choose a memo you want to delete:",
+      choices: memos,
+      result() {
+        return this.focused;
+      },
+    });
+
+    prompt
+      .run()
+      .then((memo) => this.storage.delete(memo.name))
+      .catch(console.error)
+      .then(() => this.storage.close());
   }
 }

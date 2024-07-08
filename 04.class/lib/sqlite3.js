@@ -23,7 +23,9 @@ export default class SQLite3 extends Storage {
 
   find() {}
 
-  delete() {}
+  async delete(id) {
+    await this.#runPromise(this.db, "DELETE FROM memos WHERE id = ?", id);
+  }
 
   async close() {
     await this.#closePromise(this.db);
