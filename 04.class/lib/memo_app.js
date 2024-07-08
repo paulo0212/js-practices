@@ -36,14 +36,23 @@ export default class MemoApp {
     for await (const line of rl) {
       lines.push(line);
     }
-
     const content = lines.join("\n");
-    await this.storage.create(content);
+
+    try {
+      await this.storage.create(content);
+      console.log("A new memo has been created!");
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   async #list(memos) {
-    for (const memo of memos) {
-      console.log(memo.message);
+    try {
+      for (const memo of memos) {
+        console.log(memo.message);
+      }
+    } catch (error) {
+      console.error(error);
     }
   }
 
