@@ -10,7 +10,6 @@ export default class SQLite3 extends Storage {
 
   async fetchAll() {
     const memos = await this.#allPromise(this.db, "SELECT * FROM memos");
-    await this.#closePromise(this.db);
     return memos.map((memo) => this.#buildMemo(memo));
   }
 
@@ -20,12 +19,15 @@ export default class SQLite3 extends Storage {
       "INSERT INTO memos (content) VALUES (?)",
       lines,
     );
-    await this.#closePromise(this.db);
   }
 
   find() {}
 
   delete() {}
+
+  async close() {
+    await this.#closePromise(this.db);
+  }
 
   #buildMemo(memo) {
     return {

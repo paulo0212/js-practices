@@ -33,6 +33,7 @@ export default class MemoApp {
 
     const content = lines.join("\n");
     await this.storage.create(content);
+    await this.storage.close();
   }
 
   async #list() {
@@ -40,6 +41,7 @@ export default class MemoApp {
     for (const memo of memos) {
       console.log(memo.message);
     }
+    await this.storage.close();
   }
 
   async #read() {
@@ -56,7 +58,8 @@ export default class MemoApp {
     prompt
       .run()
       .then((memo) => console.log(memo.value))
-      .catch(console.error);
+      .catch(console.error)
+      .then(() => this.storage.close());
   }
 
   #delete() {
