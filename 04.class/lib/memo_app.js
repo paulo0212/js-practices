@@ -1,4 +1,5 @@
 import readline from "readline";
+import enquirer from "enquirer";
 
 export default class MemoApp {
   constructor(storage) {
@@ -37,13 +38,25 @@ export default class MemoApp {
   async #list() {
     const memos = await this.storage.fetchAll();
     for (const memo of memos) {
-      const title = memo.content.split(/[\r\n]+/)[0];
-      console.log(title);
+      console.log(memo.message);
     }
   }
 
-  #read() {
-    console.log("This is #read.");
+  async #read() {
+    const memos = await this.storage.fetchAll();
+    const prompt = new enquirer.Select({
+      name: "memo",
+      message: "Choose a memo you want to see:",
+      choices: memos,
+      result() {
+        return this.focused;
+      },
+    });
+
+    prompt
+      .run()
+      .then((memo) => console.log(memo.value))
+      .catch(console.error);
   }
 
   #delete() {

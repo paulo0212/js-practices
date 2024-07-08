@@ -11,7 +11,7 @@ export default class SQLite3 extends Storage {
   async fetchAll() {
     const memos = await this.#allPromise(this.db, "SELECT * FROM memos");
     await this.#closePromise(this.db);
-    return memos;
+    return memos.map((memo) => this.#buildMemo(memo));
   }
 
   async create(lines) {
@@ -26,6 +26,14 @@ export default class SQLite3 extends Storage {
   find() {}
 
   delete() {}
+
+  #buildMemo(memo) {
+    return {
+      name: memo.id,
+      value: memo.content,
+      message: memo.content.split(/[\r\n]+/)[0],
+    };
+  }
 
   async #safeCreateTable() {
     await this.#runPromise(
