@@ -31,6 +31,8 @@ export default class MemoApp {
   }
 
   async #add() {
+    console.log("Waiting for your input...\n* Press Ctrl+D to save a memo.\n");
+
     const rl = readline.createInterface(process.stdin);
     const lines = [];
     for await (const line of rl) {
