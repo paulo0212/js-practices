@@ -57,14 +57,10 @@ export default class MemoApp {
   }
 
   async #read(memos) {
-    const prompt = new enquirer.Select({
-      name: "memo",
-      message: "Choose a memo you want to see:",
-      choices: memos,
-      result() {
-        return this.focused;
-      },
-    });
+    const prompt = this.#selectMemoPrompt(
+      "Choose a memo you want to read:",
+      memos,
+    );
 
     try {
       const memo = await prompt.run();
@@ -75,14 +71,10 @@ export default class MemoApp {
   }
 
   async #delete(memos) {
-    const prompt = new enquirer.Select({
-      name: "memo",
-      message: "Choose a memo you want to delete:",
-      choices: memos,
-      result() {
-        return this.focused;
-      },
-    });
+    const prompt = this.#selectMemoPrompt(
+      "Choose a memo you want to delete:",
+      memos,
+    );
 
     try {
       const memo = await prompt.run();
@@ -91,5 +83,16 @@ export default class MemoApp {
     } catch (error) {
       console.error(error);
     }
+  }
+
+  #selectMemoPrompt(message, choices) {
+    return new enquirer.Select({
+      name: "memo",
+      message: message,
+      choices: choices,
+      result() {
+        return this.focused;
+      },
+    });
   }
 }
