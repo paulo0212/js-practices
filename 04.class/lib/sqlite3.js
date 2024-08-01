@@ -2,9 +2,9 @@ import sqlite3 from "sqlite3";
 import Storage from "../lib/storage.js";
 
 export default class SQLite3 extends Storage {
-  constructor() {
+  constructor(filepath) {
     super();
-    this.db = new sqlite3.Database("../lib/memo_app.sqlite3");
+    this.db = new sqlite3.Database(filepath);
     this.#safeCreateTable();
   }
 
