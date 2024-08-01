@@ -9,7 +9,10 @@ export default class SQLite3 extends Storage {
   }
 
   async fetchAll() {
-    const memos = await this.#allPromise(this.db, "SELECT * FROM memos");
+    const memos = await this.#allPromise(
+      this.db,
+      "SELECT * FROM memos ORDER BY id DESC",
+    );
     return memos.map((memo) => this.#buildMemo(memo));
   }
 
